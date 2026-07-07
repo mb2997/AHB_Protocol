@@ -3,11 +3,7 @@
 `ifndef AHB_INF
 `define AHB_INF
 
-interface ahb_inf #(int HADDR_W = 32, 
-                    int HDATA_W = 32, 
-                    int HBURST_W = 3,
-                    int HSIZE_W = 3,
-                    int HTRANS_W = 2) (input logic HCLK, input logic HRESETn);
+interface ahb_inf (input logic HCLK, input logic HRESETn);
 
     ////////////////////////////////////////////////
     //
@@ -16,16 +12,16 @@ interface ahb_inf #(int HADDR_W = 32,
     ////////////////////////////////////////////////
 
     // Master VIP Outputs
-    logic [HADDR_W-1:0] HADDR;
-    logic [HBURST_W-1:0] HBURST;
-    logic [HSIZE_W-1:0] HSIZE;
-    logic [HTRANS_W-1:0] HTRANS;
-    logic [HDATA_W-1:0] HWDATA;
+    logic [`HADDR_W-1:0] HADDR;
+    logic [`HBURST_W-1:0] HBURST;
+    logic [`HSIZE_W-1:0] HSIZE;
+    logic [`HTRANS_W-1:0] HTRANS;
+    logic [`HDATA_W-1:0] HWDATA;
     logic HWRITE;
     logic HMASTLOCK;
 
     // Master VIP Inputs from Interconnect Outputs
-    logic [HDATA_W-1:0] HRDATA;
+    logic [`HDATA_W-1:0] HRDATA;
     logic HREADY;
     logic HRESP;
 
@@ -35,7 +31,7 @@ interface ahb_inf #(int HADDR_W = 32,
     // Slave VIP Outputs to Interconnect Inputs
     logic HREADYOUT_S;
     logic HRESP_S;
-    logic [HDATA_W-1:0] HRDATA_S;
+    logic [`HDATA_W-1:0] HRDATA_S;
     
     clocking mas_drv_cb @(posedge HCLK);
         default input #2 output #2;

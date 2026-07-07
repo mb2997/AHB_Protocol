@@ -9,6 +9,10 @@ class ahb_coverage extends uvm_subscriber #(ahb_master_trans);
         super.new(name, parent);
     endfunction
 
+    function void write(ahb_master_trans t);
+
+    endfunction
+
 endclass : ahb_coverage
 
 `endif
