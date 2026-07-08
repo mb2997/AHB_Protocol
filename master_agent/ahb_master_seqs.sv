@@ -15,10 +15,10 @@ class ahb_master_seqs extends uvm_sequence #(ahb_master_trans);
         mtrans_h = ahb_master_trans :: type_id :: create("mtrans_h");
         repeat(no_of_trans)
         begin
-            // start_item(mtrans_h);
+            start_item(mtrans_h);
             assert(mtrans_h.randomize());
             `uvm_info(get_type_name(), $sformatf("Generated Master Transaction = \n%s", mtrans_h.sprint()), UVM_MEDIUM)
-            // finish_item(mtrans_h);
+            finish_item(mtrans_h);
         end
     endtask
 

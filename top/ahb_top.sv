@@ -6,7 +6,7 @@ module ahb_top();
     `include "uvm_macros.svh"
 
     // Local variables
-    logic clk = 0;
+    bit clk = 0;
     logic rstn = 1;
     real CYCLE;
 
@@ -19,6 +19,7 @@ module ahb_top();
         @(negedge clk);
         @(negedge clk);
         rstn = 1;
+        `uvm_info("RESET DONE", "Initial Reset Operation Done!", UVM_MEDIUM)
     end
 
     initial
@@ -38,7 +39,8 @@ module ahb_top();
 
     initial
     begin
-        uvm_config_db #(virtual ahb_inf) :: set(null,"*","ahb_inf",inf);
+        // uvm config db is expensive for all components, so it's better to provide respective path to it 
+        uvm_config_db #(virtual ahb_inf) :: set(null, "uvm_test_top.env_h.*agent_h", "ahb_inf", inf);
         run_test("ahb_base_test");
     end
 

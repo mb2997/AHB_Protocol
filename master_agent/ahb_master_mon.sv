@@ -6,6 +6,8 @@ class ahb_master_mon extends uvm_monitor;
     //Factory registration
     `uvm_component_utils(ahb_master_mon)
 
+    virtual ahb_inf vif;
+
     function new(string name = "ahb_master_mon", uvm_component parent = null);
         super.new(name,parent);
     endfunction

@@ -9,7 +9,6 @@ class ahb_sb extends uvm_scoreboard;
         super.new(name, parent);
     endfunction
 
-
 endclass : ahb_sb
 
 `endif

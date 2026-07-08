@@ -9,6 +9,9 @@ class ahb_master_config extends uvm_object;
         super.new(name);
     endfunction
 
+    uvm_active_passive_enum is_active = UVM_ACTIVE;
+    int hready_max_cycles = 10;
+
 endclass : ahb_master_config
 
 `endif

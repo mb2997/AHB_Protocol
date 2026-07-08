@@ -34,7 +34,7 @@ class ahb_master_trans extends uvm_sequence_item;
     `uvm_object_utils_begin(ahb_master_trans)
         `uvm_field_int(HWRITE, UVM_ALL_ON | UVM_DEC)
         `uvm_field_int(HADDR, UVM_ALL_ON | UVM_DEC)
-        `uvm_field_array_int(HWDATA, UVM_ALL_ON | UVM_DEC)
+        `uvm_field_array_int(HWDATA, UVM_ALL_ON | UVM_HEX)
         `uvm_field_enum(burst_type_et, burst_type, UVM_ALL_ON)
         `uvm_field_enum(transfer_type_et, transfer_type, UVM_ALL_ON)
         `uvm_field_enum(transfer_size_et, transfer_size, UVM_ALL_ON)
