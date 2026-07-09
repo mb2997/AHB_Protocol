@@ -8,3 +8,4 @@
 typedef enum bit [`HBURST_W-1:0] {SINGLE, INCR, WRAP4, INCR4, WRAP8, INCR8, WRAP16, INCR16} burst_type_et;
 typedef enum bit [`HSIZE_W-1:0] {BYTE, HALFWORD, WORD, DOUBLEWORD, FOURWORD, EIGHTWORD, RESERVED1, RESERVED2} transfer_size_et;
 typedef enum bit [`HTRANS_W-1:0] {IDLE, BUSY, NONSEQ, SEQ} transfer_type_et;
+typedef enum bit [1:0] {READ, WRITE} rd_wr_et;

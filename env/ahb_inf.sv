@@ -13,11 +13,11 @@ interface ahb_inf (input logic HCLK, input logic HRESETn);
 
     // Master VIP Outputs
     logic [`HADDR_W-1:0] HADDR;
-    logic [`HBURST_W-1:0] HBURST;
-    logic [`HSIZE_W-1:0] HSIZE;
-    logic [`HTRANS_W-1:0] HTRANS;
+    burst_type_et HBURST;
+    transfer_size_et HSIZE;
+    transfer_type_et HTRANS;
     logic [`HDATA_W-1:0] HWDATA;
-    logic HWRITE;
+    rd_wr_et HWRITE;
     logic HMASTLOCK;
 
     // Master VIP Inputs from Interconnect Outputs

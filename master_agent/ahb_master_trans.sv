@@ -6,10 +6,10 @@ class ahb_master_trans extends uvm_sequence_item;
     // random variables
     rand bit [`HADDR_W-1:0] HADDR;
     rand bit [`HDATA_W-1:0] HWDATA [];
-    rand bit HWRITE;
+    rand rd_wr_et HWRITE;
     rand burst_type_et burst_type;
     rand transfer_size_et transfer_size;
-    rand transfer_type_et transfer_type;
+    transfer_type_et transfer_type;
     rand int unsigned burst_len;
 
     bit HMASTLOCK;
@@ -21,7 +21,8 @@ class ahb_master_trans extends uvm_sequence_item;
     // Constraint for randomization
     constraint c1_transfer_size {!(transfer_size inside {RESERVED1, RESERVED2});}
     constraint c2_transfer_size {2**transfer_size <= `HDATA_W/8;}
-    constraint c_write_read {HWRITE dist {1:=80, 0:=20};}
+    // constraint c_write_read {HWRITE dist {1:=80, 0:=20};}
+    constraint c_write_read {HWRITE == WRITE;}
     constraint c_write_data_size {HWDATA.size() == burst_len; solve burst_len before HWDATA;}
     constraint c_burst_len {(burst_type == SINGLE) -> burst_len == 1;
                             (burst_type inside {INCR4, WRAP4}) -> burst_len == 4;
@@ -32,9 +33,9 @@ class ahb_master_trans extends uvm_sequence_item;
 
     // Factory registration and field macros
     `uvm_object_utils_begin(ahb_master_trans)
-        `uvm_field_int(HWRITE, UVM_ALL_ON | UVM_DEC)
+        `uvm_field_enum(rd_wr_et, HWRITE, UVM_ALL_ON)
         `uvm_field_int(HADDR, UVM_ALL_ON | UVM_DEC)
-        `uvm_field_array_int(HWDATA, UVM_ALL_ON | UVM_HEX)
+        `uvm_field_array_int(HWDATA, UVM_ALL_ON | UVM_DEC)
         `uvm_field_enum(burst_type_et, burst_type, UVM_ALL_ON)
         `uvm_field_enum(transfer_type_et, transfer_type, UVM_ALL_ON)
         `uvm_field_enum(transfer_size_et, transfer_size, UVM_ALL_ON)
@@ -53,6 +54,7 @@ class ahb_master_trans extends uvm_sequence_item;
         int unsigned wrap_size;
         if(burst_type inside {WRAP4, WRAP8, WRAP16})
         begin
+            // Memory block size is indicated by wrap_size
             wrap_size = (1 << transfer_size) * burst_len;
             wrap_lower_boundary = (HADDR / wrap_size) * wrap_size;
             wrap_upper_boundary = wrap_lower_boundary + wrap_size - 1;

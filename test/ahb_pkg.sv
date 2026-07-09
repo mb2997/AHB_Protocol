@@ -2,7 +2,7 @@
 
 package ahb_pkg;
 
-    int no_of_trans = 3;
+    int no_of_trans = 10;
 
     `include "../top/ahb_defs.sv"
 
